@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1 th:text="${livro.titulo}">Titulo</h1>
+    <p><strong>autor</strong> <span th:text="${livro.autor}"></span></p>
+    <p><strong>genero</strong> <span th:text="${livro.genero}"></span></p>
+    <p><strong>data</strong> <span th:text="${#temporals.format(livro.dataPublicacao, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>resumo</strong> <span th:text="${livro.resumo}"></span></p>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

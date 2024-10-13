@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesquisa de Livros</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1>Pesquisa de Livros</h1>
+    <form th:action="@{/livro/pesquisar}" method="get" class="d-flex">
+        <input class="form-control me-2" type="search" name="query" placeholder="Buscar livros" aria-label="Search">
+        <button class="btn btn-dark" type="submit">Pesquisar</button>
+    </form>
+
+    <table class="table mt-4">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Data de Publicação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro : ${livros}">
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${livro.autor}"></td>
+            <td th:text="${#temporals.format(livro.dataPublicacao, 'dd/MM/yyyy')}"></td>
+            <td>
+                <a th:href="@{/livro/detalhar/}+${livro.id}" class="btn btn-success m-2">Detalhar</a>
+                <a th:href="@{/livro/editar/}+${livro.id}"
+                   class="btn btn-primary m-2">Editar</a>
+
+                <button th:onclick="|livroId.value = ${livro.id}|" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Remover
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o livro?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/livro/remover}" method="post">
+                        <input type="hidden" name="id" id="livroId"/>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" class="btn btn-danger">Sim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

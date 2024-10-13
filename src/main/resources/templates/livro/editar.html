@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Editar</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Editar</h1>
+    <form th:action="@{/livro/editar}" th:object="${livro}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+        <input th:field="*{id}" type="hidden"/>
+
+        <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input class="form-control" th:field="*{titulo}" type="text" id="titulo">
+            <p th:if="${#fields.hasErrors('titulo')}" class="text text-danger" th:errors="*{titulo}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Autor</label>
+            <input class="form-control" th:field="*{autor}" type="text" id="autor">
+            <p th:if="${#fields.hasErrors('autor')}" class="text text-danger" th:errors="*{autor}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Genero</label>
+            <input class="form-control" th:field="*{genero}" type="text" id="genero">
+            <p th:if="${#fields.hasErrors('genero')}" class="text text-danger" th:errors="*{genero}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Data de Publicação</label>
+            <input class="form-control" th:field="*{dataPublicacao}" type="text" id="dataPublicacao">
+            <p th:if="${#fields.hasErrors('dataPublicacao')}" class="text text-danger" th:errors="*{dataPublicacao}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Resumo</label>
+            <textarea class="form-control" th:field="*{resumo}" id="resumo"></textarea>
+            <p th:if="${#fields.hasErrors('resumo')}" class="text text-danger" th:errors="*{resumo}"></p>
+        </div>
+
+        <button class="btn btn-success">Salvar</button>
+
+        <br>
+        <p th:text="${msg}"></p>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
